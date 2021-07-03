@@ -7,8 +7,8 @@ import { requestSignin } from '../redux/user/user.actions';
 import Header from '../partials/Header';
 
 function SignIn({ onSubmitSignin }) {
-  const [email, setEmail] = useState(undefined);
-  const [password, setPassword] = useState(undefined);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   
   const handleSubmit = (event) => {
       event.preventDefault();
@@ -52,6 +52,7 @@ function SignIn({ onSubmitSignin }) {
                         className="form-input w-full text-gray-800" 
                         placeholder="Enter your email address" 
                         required 
+                        value={email}
                         onChange={(event) => setEmail(event.target.value)}
                       />
                     </div>
@@ -68,6 +69,7 @@ function SignIn({ onSubmitSignin }) {
                         className="form-input w-full text-gray-800" 
                         placeholder="Enter your password" 
                         required 
+                        value={password}
                         onChange={(event) => setPassword(event.target.value)}
                       />
                     </div>
