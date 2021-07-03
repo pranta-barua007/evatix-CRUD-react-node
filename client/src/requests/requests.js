@@ -16,7 +16,7 @@ async function httpSignin(email, password) {
 
 // Register 
 async function httpSignup(name, birthdate, email, password) {
-    const response = await fetch(`${API_URL}/signup`, {
+    const response = await fetch(`${API_URL}/register`, {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

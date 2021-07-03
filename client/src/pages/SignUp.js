@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { requestSignup } from '../redux/user/user.actions';
 
 import Header from '../partials/Header';
 
-function SignUp() {
+function SignUp({ onSubmitSignup }) {
+  const [name, setName] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const handleSubmit = (event) => {
+      event.preventDefault();
+      const result =  onSubmitSignup(name, birthdate, email, password);
+      console.log(result);
+      clearForm();
+  };
 
+  const clearForm = () => {
+      setName('');
+      setBirthdate('');
+      setEmail('');
+      setPassword('');
+  };
   
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
@@ -26,29 +45,59 @@ function SignUp() {
 
               {/* Form */}
               <div className="max-w-sm mx-auto">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="name">Name <span className="text-red-600">*</span></label>
-                      <input id="name" type="text" className="form-input w-full text-gray-800" placeholder="Enter your Full name" required />
+                      <input 
+                      id="name" 
+                      type="text" 
+                      className="form-input w-full text-gray-800" 
+                      placeholder="Enter your Full name" 
+                      required 
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="email">Email <span className="text-red-600">*</span></label>
-                      <input id="email" type="email" className="form-input w-full text-gray-800" placeholder="Enter your email address" required />
+                      <input 
+                      id="email" 
+                      type="email" 
+                      className="form-input w-full text-gray-800" 
+                      placeholder="Enter your email address" 
+                      required 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="email">Birthdate <span className="text-red-600">*</span></label>
-                      <input id="date" type="date" className="form-input w-full text-gray-800" required />
+                      <input 
+                        id="date"
+                        type="date"
+                        className="form-input w-full text-gray-800"
+                        required 
+                        onChange={(e) => setBirthdate(e.target.value)}
+                      />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="password">Password <span className="text-red-600">*</span></label>
-                      <input id="password" type="password" className="form-input w-full text-gray-800" placeholder="Enter your password" required />
+                      <input 
+                      id="password" 
+                      type="password" 
+                      className="form-input w-full text-gray-800" 
+                      placeholder="Enter your password" 
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)} 
+                    />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mt-6">
@@ -100,6 +149,12 @@ function SignUp() {
 
     </div>
   );
-}
+};
 
-export default SignUp;
+const mapDispatchToProps = dispatch => {
+  return {
+    onSubmitSignup: (name, birthdate, email, password) => dispatch(requestSignup(name, birthdate, email, password))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(SignUp);

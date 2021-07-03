@@ -55,9 +55,13 @@ function App({ currentUser }) {
             <SignIn />
           )
         }/>
-        <Route path="/signup">
-          <SignUp />
-        </Route>
+        <Route exact path="/signup" render={() => 
+          currentUser && currentUser.id ? (
+            <Redirect to={`profile/${currentUser.id}`} />
+          ) : (
+            <SignUp />
+          )
+        }/>
         <Route path="/reset-password">
           <ResetPassword />
         </Route>
