@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Header from '../partials/Header';
 
 function SignUp() {
+
+  
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
 
