@@ -1,5 +1,5 @@
 {
-  "name": "simple-light-react",
+  "name": "evatix-crud-application-front-end",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "BUILD_PATH=../server/public craco build",
     "test": "craco test",
     "eject": "craco eject"
   },
