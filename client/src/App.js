@@ -2,8 +2,13 @@ import React, { useEffect } from 'react';
 import {
   Switch,
   Route,
+  Redirect,
   useLocation
 } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from './redux/user/user.selectors';
 
 import './css/style.scss';
 
@@ -15,7 +20,9 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ResetPassword from './pages/ResetPassword';
 
-function App() {
+import Profile from './pages/Profile';
+
+function App({ currentUser }) {
 
   const location = useLocation();
 
@@ -41,18 +48,35 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/signin">
-          <SignIn />
-        </Route>
+        <Route exact path="/signin" render={() => 
+          currentUser && currentUser.id ? (
+            <Redirect to={`profile/${currentUser.id}`} />
+          ) : (
+            <SignIn />
+          )
+        }/>
         <Route path="/signup">
           <SignUp />
         </Route>
         <Route path="/reset-password">
           <ResetPassword />
         </Route>
+        <Route path="/profile/:id" render={() => 
+          currentUser && currentUser.id ? (
+            <Profile />
+          ): (
+            <Redirect to='/' />
+          )
+        } />
       </Switch>
     </>
   );
-}
+};
 
-export default App;
+const mapStateToProps = createStructuredSelector(
+  {
+      currentUser: selectCurrentUser
+  }
+);
+
+export default connect(mapStateToProps, null)(App);
