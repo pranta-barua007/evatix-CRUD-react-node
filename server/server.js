@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const bcrypt = require('bcryptjs');
 
 const signin = require('./controllers/signin');
+const register = require('./controllers/register');
 
 const db = require('knex')({
     client: 'pg',
@@ -32,6 +33,8 @@ app.get('/*', (req, res) => {
 app.get('/check', (req, res) => { res.status(200).send('its working') });
 
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) });
+
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) });
 
 
 const hash = bcrypt.hashSync('e2pb', 10);
