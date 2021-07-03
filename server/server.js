@@ -5,6 +5,17 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const bcrypt = require('bcryptjs');
 
+const db = require('knex')({
+    client: 'pg',
+    connection: {
+      host : '127.0.0.1',
+      user : 'postgres',
+      password : 'test',
+      database : 'evatix'
+    }
+});
+
+
 const app = express();
 
 app.use(helmet());
