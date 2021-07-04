@@ -1,9 +1,9 @@
 const handleProfileUpdate = (req, res, db) => {
     const { id } = req.params
-    const { name, email } = req.body;
+    const { name, email, profession } = req.body;
     db('users')
     .where({ id })
-    .update({ name: name, email: email })
+    .update({ name: name, email: email, profession: profession })
     .then(resp => {
       if (resp) {
         db('login')

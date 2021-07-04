@@ -94,10 +94,10 @@ export const requestSignin = (email, password) => async (dispatch) => {
     }
 };
 
-export const requestSignup = (name, birthdate, email, password) => async (dispatch) => {
+export const requestSignup = (name, birthdate, profession, email, password) => async (dispatch) => {
     dispatch(signUpStart());
     try {
-        const callAPI = await httpSignup(name, birthdate,email, password)
+        const callAPI = await httpSignup(name, birthdate, profession, email, password)
         if (callAPI && callAPI.error) {
             throw new Error(callAPI.error);
         }
@@ -116,10 +116,10 @@ export const requestSignOut = () => (dispatch) => {
     }
 };
 
-export const requestProfileUpdate = (id, name, email) => async (dispatch) => {
+export const requestProfileUpdate = (id, name, email, profession) => async (dispatch) => {
     dispatch(updateProfileStart());
     try {
-        const callAPI = await httpUpdateProfile(id, name, email)
+        const callAPI = await httpUpdateProfile(id, name, email, profession)
         if (callAPI && callAPI.error) {
             throw new Error(callAPI.error);
         }
