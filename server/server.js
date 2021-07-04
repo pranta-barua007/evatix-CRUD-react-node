@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const signin = require('./controllers/signin');
 const register = require('./controllers/register');
 const profile = require('./controllers/profile');
+const deleteProfile = require('./controllers/deleteAcc');
 
 const db = require('knex')({
     client: 'pg',
@@ -38,6 +39,8 @@ app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) })
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) });
 
 app.post('/profile/:id', (req, res) => { profile.handleProfileUpdate(req, res, db) });
+
+app.delete('/delete/:id', (req, res) => { deleteProfile.handleProfileDelete(req, res, db) });
 
 
 const hash = bcrypt.hashSync('e2pb', 10);
