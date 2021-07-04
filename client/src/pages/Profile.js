@@ -2,12 +2,13 @@ import React, {useState, useEffect} from 'react';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
 import { selectCurrentUser, selectUserIsPending } from '../redux/user/user.selectors';
+import { requestProfileUpdate } from '../redux/user/user.actions';
 
 import Header from '../partials/Header';
 
-function Profile({ userLoading, currentUser }) {
+
+function Profile({ userLoading, currentUser, onSubmitUpdateProfile }) {
   const [profileEmail, setProfileEmail] = useState('');
   const [profileName, setProfileName] = useState('');
 
@@ -28,6 +29,7 @@ function Profile({ userLoading, currentUser }) {
 
   const handleSubmit = (event) => {
       event.preventDefault();
+      onSubmitUpdateProfile(currentUser.id, profileName, profileEmail);
   };
 
   return (
@@ -115,4 +117,10 @@ const mapStateToProps = createStructuredSelector(
     }
 );
 
-export default connect(mapStateToProps, null)(Profile);
+const mapDispatchToProps = dispatch => {
+  return {
+    onSubmitUpdateProfile: (id, email, password) => dispatch(requestProfileUpdate(id, email, password))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
