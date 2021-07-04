@@ -18,7 +18,7 @@ const handleSignin = (req, res, db, bcrypt) => {
              res.status(400).json({error: 'wrong cordentials'})
          }
      })
-     .catch(err => res.status(400).json({error: 'user doesnot exists'}))
+     .catch(err => res.status(400).json({error: 'user doesnot exist'}))
  };
 
  module.exports = {

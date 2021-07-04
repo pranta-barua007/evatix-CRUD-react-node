@@ -76,15 +76,15 @@ export const requestSignin = (email, password) => async (dispatch) => {
 };
 
 export const requestSignup = (name, birthdate, email, password) => async (dispatch) => {
-    dispatch(signInStart());
+    dispatch(signUpStart());
     try {
         const callAPI = await httpSignup(name, birthdate,email, password)
         if (callAPI && callAPI.error) {
             throw new Error(callAPI.error);
         }
-        dispatch(signInSuccess(callAPI))
+        dispatch(signUpSuccess(callAPI))
     }catch(err) {
-        dispatch(signInFailure(err.message))
+        dispatch(signUpFailure(err.message))
     }
 };
 
