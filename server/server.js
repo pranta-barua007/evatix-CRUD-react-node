@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 
 const signin = require('./controllers/signin');
 const register = require('./controllers/register');
+const profile = require('./controllers/profile');
 
 const db = require('knex')({
     client: 'pg',
@@ -35,6 +36,8 @@ app.get('/check', (req, res) => { res.status(200).send('its working') });
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) });
 
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) });
+
+app.post('/profile/:id', (req, res) => { profile.handleProfileUpdate(req, res, db) });
 
 
 const hash = bcrypt.hashSync('e2pb', 10);
