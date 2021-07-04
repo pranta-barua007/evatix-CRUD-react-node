@@ -42,12 +42,12 @@ app.post('/profile/:id', (req, res) => { profile.handleProfileUpdate(req, res, d
 
 app.delete('/delete/:id', (req, res) => { deleteProfile.handleProfileDelete(req, res, db) });
 
+// checking bcrypt
+// const hash = bcrypt.hashSync('e2pb', 10);
+// console.log(hash);
 
-const hash = bcrypt.hashSync('e2pb', 10);
-console.log(hash);
-
-const compare = bcrypt.compareSync('e2pb', '$2a$10$7ksQCb6GhYn4ygPc//o54uyqAH282uKdgjeO73qRhtTjVFpPTRF1y')
-console.log(compare);
+// const compare = bcrypt.compareSync('e2pb', '$2a$10$7ksQCb6GhYn4ygPc//o54uyqAH282uKdgjeO73qRhtTjVFpPTRF1y')
+// console.log(compare);
 
 
 const PORT = process.env.PORT || 8000;
