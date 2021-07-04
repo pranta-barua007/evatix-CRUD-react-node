@@ -21,7 +21,7 @@ const handleRegister = (req, res, db, bcrypt) => {
                 birthdate: new Date(birthdate)  
             })
             .then(user => {
-                res.json(user[0]);
+                res.status(201).json(user[0]);
             })
         })
         .then(trx.commit)
