@@ -11,11 +11,14 @@ import Header from '../partials/Header';
 function Profile({ userLoading, currentUser, onSubmitUpdateProfile }) {
   const [profileEmail, setProfileEmail] = useState('');
   const [profileName, setProfileName] = useState('');
+  const [profileProfession, setProfileProfession] = useState('');
+
 
   const loadUser = (userData) => {
-    const {name, email} = userData;
+    const {name, email, profession} = userData;
     setProfileEmail(email);
     setProfileName(name);
+    setProfileProfession(profession);
   };
  
   
@@ -29,7 +32,7 @@ function Profile({ userLoading, currentUser, onSubmitUpdateProfile }) {
 
   const handleSubmit = (event) => {
       event.preventDefault();
-      onSubmitUpdateProfile(currentUser.id, profileName, profileEmail);
+      onSubmitUpdateProfile(currentUser.id, profileName, profileEmail, profileProfession);
   };
 
   return (
@@ -63,6 +66,19 @@ function Profile({ userLoading, currentUser, onSubmitUpdateProfile }) {
                               placeholder={profileName} 
                               required 
                               onChange={(event) => setProfileName(event.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex flex-wrap -mx-3 mb-4">
+                        <div className="w-full px-3">
+                            <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="profession">Name <span className="text-red-600">*</span></label>
+                            <input 
+                              id="profession" 
+                              type="text" 
+                              className="form-input w-full text-gray-800" 
+                              placeholder={profileProfession} 
+                              required 
+                              onChange={(event) => setProfileProfession(event.target.value)}
                             />
                         </div>
                     </div>
@@ -119,7 +135,7 @@ const mapStateToProps = createStructuredSelector(
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSubmitUpdateProfile: (id, email, password) => dispatch(requestProfileUpdate(id, email, password))
+    onSubmitUpdateProfile: (id, name, email, profession) => dispatch(requestProfileUpdate(id, name, email, profession))
   }
 };
 

@@ -8,12 +8,13 @@ import Header from '../partials/Header';
 function SignUp({ onSubmitSignup }) {
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
+  const [profession, setProfession] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
   const handleSubmit = (event) => {
       event.preventDefault();
-      const result =  onSubmitSignup(name, birthdate, email, password);
+      const result =  onSubmitSignup(name, birthdate, profession, email, password);
       console.log(result);
       clearForm();
   };
@@ -62,6 +63,20 @@ function SignUp({ onSubmitSignup }) {
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
+                      <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="profession">Profession <span className="text-red-600">*</span></label>
+                      <input 
+                      id="profession" 
+                      type="text" 
+                      className="form-input w-full text-gray-800" 
+                      placeholder="Profession" 
+                      required 
+                      value={profession}
+                      onChange={(e) => setProfession(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap -mx-3 mb-4">
+                    <div className="w-full px-3">
                       <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="email">Email <span className="text-red-600">*</span></label>
                       <input 
                       id="email" 
@@ -76,7 +91,7 @@ function SignUp({ onSubmitSignup }) {
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
-                      <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="email">Birthdate <span className="text-red-600">*</span></label>
+                      <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="date">Birthdate <span className="text-red-600">*</span></label>
                       <input 
                         id="date"
                         type="date"
@@ -153,7 +168,7 @@ function SignUp({ onSubmitSignup }) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSubmitSignup: (name, birthdate, email, password) => dispatch(requestSignup(name, birthdate, email, password))
+    onSubmitSignup: (name, birthdate, profession, email, password) => dispatch(requestSignup(name, birthdate, profession, email, password))
   }
 };
 
