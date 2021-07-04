@@ -1,5 +1,5 @@
 import { UserActionTypes } from './user.types';
-import { httpSignin, httpSignup } from '../../requests/requests';
+import { httpSignin, httpSignup, httpUpdateProfile } from '../../requests/requests';
 
 export const signInStart = () => (
     {
@@ -61,6 +61,25 @@ export const signUpFailure = error => (
     }
 );
 
+export const updateProfileStart = () => (
+    {
+        type: UserActionTypes.UPDATE_PROFILE_START,
+    }
+);
+
+export const updateProfileSuccess = user => (
+    {
+        type: UserActionTypes.UPDATE_PROFILE_SUCCESS,
+        payload: user
+    }
+);
+
+export const updateProfileFailure = error => (
+    {
+        type: UserActionTypes.UPDATE_PROFILE_FAILURE,
+        payload: error
+    }
+);
 
 export const requestSignin = (email, password) => async (dispatch) => {
     dispatch(signInStart());
@@ -88,12 +107,24 @@ export const requestSignup = (name, birthdate, email, password) => async (dispat
     }
 };
 
-
 export const requestSignOut = () => (dispatch) => {
     dispatch(signOutStart());
     try {
         dispatch(signOutSuccess());
     } catch (error) {
         dispatch(signOutFailure(error))
+    }
+};
+
+export const requestProfileUpdate = (id, name, email) => async (dispatch) => {
+    dispatch(updateProfileStart());
+    try {
+        const callAPI = await httpUpdateProfile(id, name, email)
+        if (callAPI && callAPI.error) {
+            throw new Error(callAPI.error);
+        }
+        dispatch(updateProfileSuccess(callAPI))
+    }catch(err) {
+        dispatch(updateProfileFailure(err.message))
     }
 };

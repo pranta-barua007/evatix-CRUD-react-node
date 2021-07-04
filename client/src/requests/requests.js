@@ -30,7 +30,22 @@ async function httpSignup(name, birthdate, email, password) {
     return await response.json();
 };
 
+// Update Profile 
+async function httpUpdateProfile(id, name, email) {
+    const response = await fetch(`${API_URL}/profile/${id}`, {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                name: name,
+                email: email,
+            })
+        }
+    );
+    return await response.json();
+};
+
 export {
     httpSignin,
-    httpSignup
+    httpSignup,
+    httpUpdateProfile
 };

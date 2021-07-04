@@ -1,19 +1,28 @@
 const handleProfileUpdate = (req, res, db) => {
     const { id } = req.params
-    const { name, age, pet } = req.body.formInput
+    const { name, email } = req.body;
     db('users')
     .where({ id })
-    .update({ name: name, age: age, pet: pet })
+    .update({ name: name, email: email })
     .then(resp => {
       if (resp) {
-        res.status(200).json({...resp, message: "Success updating profile"})
+        db('login')
+        .where({ id: id })
+        .update({email: email})
+        .then(updated => {
+          updated ? ( 
+            res.status(200).json({message: "Success updating profile"})
+          ) : (
+            res.status(400).json({error: 'Not found'})
+          )
+        })
       } else {
         res.status(400).json({error: 'Not found'})
       }
     })
-    .catch(err => res.status(400).json({error: 'error updating user'}))
-  };
+    .catch(err => res.status(404).json({error: 'unable to update'}))
+};
   
-  module.exports = {
-    handleProfileUpdate
-  }
+module.exports = {
+  handleProfileUpdate
+}
