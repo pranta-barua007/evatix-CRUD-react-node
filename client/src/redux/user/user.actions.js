@@ -1,5 +1,5 @@
 import { UserActionTypes } from './user.types';
-import { httpSignin, httpSignup, httpUpdateProfile } from '../../requests/requests';
+import { httpSignin, httpSignup, httpUpdateProfile, httpDeleteProfile } from '../../requests/requests';
 
 export const signInStart = () => (
     {
@@ -81,6 +81,26 @@ export const updateProfileFailure = error => (
     }
 );
 
+export const deleteProfileStart = () => (
+    {
+        type: UserActionTypes.DELETE_PROFILE_START,
+    }
+);
+
+export const deleteProfileSuccess = user => (
+    {
+        type: UserActionTypes.DELETE_PROFILE_SUCCESS,
+        payload: user
+    }
+);
+
+export const deleteProfileFailure = error => (
+    {
+        type: UserActionTypes.DELETE_PROFILE_FAILURE,
+        payload: error
+    }
+);
+
 export const requestSignin = (email, password) => async (dispatch) => {
     dispatch(signInStart());
     try {
@@ -126,5 +146,19 @@ export const requestProfileUpdate = (id, name, email, profession) => async (disp
         dispatch(updateProfileSuccess(callAPI))
     }catch(err) {
         dispatch(updateProfileFailure(err.message))
+    }
+};
+
+export const requestProfileDelete = (id) => async (dispatch) => {
+    dispatch(deleteProfileStart());
+    try {
+        const callAPI = await httpDeleteProfile(id)
+        if (callAPI && callAPI.error) {
+            throw new Error(callAPI.error);
+        }
+        dispatch(deleteProfileSuccess(callAPI));
+        dispatch(signOutSuccess());
+    }catch(err) {
+        dispatch(deleteProfileFailure(err.message));
     }
 };

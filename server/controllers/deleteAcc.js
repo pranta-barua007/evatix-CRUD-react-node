@@ -1,6 +1,11 @@
 const handleProfileDelete = (req, res, db) => {
-    const { id } = req.params;
+  const { id } = req.params;
+  const { accId } = req.body;
 
+  if(accId !== Number(id)) {
+    return res.status(400).json({error: 'unauthorized action'})
+  }
+  
     db('users')
     .where({ id })
     .del()

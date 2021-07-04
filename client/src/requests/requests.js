@@ -46,8 +46,22 @@ async function httpUpdateProfile(id, name, email, profession) {
     return await response.json();
 };
 
+// Delete Profile 
+async function httpDeleteProfile(id) {
+    const response = await fetch(`${API_URL}/delete/${id}`, {
+            method: 'delete',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                accId: id
+            })
+        }
+    );
+    return await response.json();
+};
+
 export {
     httpSignin,
     httpSignup,
-    httpUpdateProfile
+    httpUpdateProfile,
+    httpDeleteProfile
 };
