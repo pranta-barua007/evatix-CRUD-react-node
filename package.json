@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pranta-barua007/NASA-mission-control.git"
+    "url": "git+https://github.com/pranta-barua007/evatix-CRUD-react-node.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {},
   "bugs": {
-    "url": "https://github.com/pranta-barua007/NASA-mission-control/issues"
+    "url": "https://github.com/pranta-barua007/evatix-CRUD-react-node/issues"
   },
-  "homepage": "https://github.com/pranta-barua007/NASA-mission-control#readme"
+  "homepage": "https://github.com/pranta-barua007/evatix-CRUD-react-nodel#readme"
 }
